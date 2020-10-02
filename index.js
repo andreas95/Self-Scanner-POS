@@ -1,14 +1,6 @@
-const http = require('http');
- 
-const host = '0.0.0.0';
-const port = 3000;
- 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World!');
-});
- 
-server.listen(port, host, () => {
-   console.log('Web server running at http://%s:%s',host,port );
-});
+const http = require('http'); //loads the library to enable it to act as a server
+var port = process.env.PORT || 5000; //specifies the port no to whatever heroku gives or 5000 on local host
+http.createServer(function(req,res){ // creates a server
+    res.writeHead(200,{'Content-type':'text/plain'}); //Specifies that the respones "hello" is a text
+    res.end("hello"); //shows the text "hello" on th eweb page
+}).listen(port); // attaches this server to the port no.
