@@ -1,0 +1,27 @@
+{
+  "name": "REST-API-Self-Scanner-POS",
+  "version": "1.0.0",
+  "description": "REST API for Self Scanner POS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreas95/Self-Scanner-POS.git"
+  },
+  "author": "Andreas",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "https://github.com/andreas95",
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.3",
+    "uuid": "^8.3.0"
+  }
+}
