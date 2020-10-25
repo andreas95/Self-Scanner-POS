@@ -9,6 +9,7 @@ const productSchema = new Schema({
     item_photo : String,
     units : Number,
     barcode : { type : String, required : true , unique : true, dropDups: true },
+    category : { type : String, required : true}
 });
 
 productSchema.virtual('id').get(function () {
@@ -24,15 +25,49 @@ productSchema.findById = function (cb) {
     return this.model('Products').find({id: this.id}, cb);
 };
 
+productSchema.findByBarcode = function (cb) {
+    return this.model('Products').find({barcode: this.barcode}, cb);
+};
+
+productSchema.findByCategory = function (cb) {
+    return this.model('Products').find({category: this.category}, cb);
+};
+
 const Product = mongoose.model('Products', productSchema);
 
 
 exports.findByName = (item_name_lang, name) => {
-    return Product.find({item_name_lang: name});
+    return new Promise((resolve, reject) => {
+        temp_json_obj = JSON.parse('{ "' + item_name_lang + '": "' + name + '"}');
+        Product.find(temp_json_obj)
+            .exec(function (err, products) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(products);
+                }
+            })
+    });
 };
 
 exports.findByBarcode = (barcode) => {
-    return Product.find({barcode: barcode});
+    return Product.findByBarcode(barcode)
+        .then((result) => {
+            result = result.toJSON();
+            delete result._id;
+            delete result.__v;
+            return result;
+        });
+};
+
+exports.findByCategory = (category) => {
+    return Product.findByCategory(category)
+        .then((result) => {
+            result = result.toJSON();
+            delete result._id;
+            delete result.__v;
+            return result;
+        });
 };
 
 exports.findById = (id) => {

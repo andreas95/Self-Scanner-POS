@@ -13,14 +13,19 @@ exports.routesConfig = function (app) {
         ProductsController.insert
     ]);
     app.get('/products', [
-        ValidationMiddleware.validJWTNeeded,
-        PermissionMiddleware.minimumPermissionLevelRequired(MANAGER),
         ProductsController.list
     ]);
     app.get('/products/:productId', [
-        ValidationMiddleware.validJWTNeeded,
-        PermissionMiddleware.minimumPermissionLevelRequired(MANAGER),
         ProductsController.getById
+    ]);
+    app.get('/products/:item_name_lang/:productName', [
+        ProductsController.getByName
+    ]);
+    app.get('/products/barcode/:barcode', [
+        ProductsController.getByBarcode
+    ]);
+    app.get('/products/category/:category', [
+        ProductsController.getByCategory
     ]);
     app.patch('/products/:productId', [
         ValidationMiddleware.validJWTNeeded,
