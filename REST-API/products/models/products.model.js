@@ -38,7 +38,7 @@ const Product = mongoose.model('Products', productSchema);
 
 exports.findByName = (item_name_lang, name) => {
     return new Promise((resolve, reject) => {
-        temp_json_obj = JSON.parse('{ "' + item_name_lang + '": "' + name + '"}');
+        temp_json_obj = JSON.parse('{ "' + item_name_lang + '": { "$regex": "' + name + '", "$options": "i" }}');
         Product.find(temp_json_obj)
             .exec(function (err, products) {
                 if (err) {
