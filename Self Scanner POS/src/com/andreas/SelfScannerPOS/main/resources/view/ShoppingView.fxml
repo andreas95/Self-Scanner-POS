@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<?import javafx.geometry.Insets?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
+<?import org.controlsfx.glyphfont.Glyph?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.shape.Line?>
+<AnchorPane fx:id="MainPane" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.andreas.SelfScannerPOS.main.java.controller.ShoppingController"
+            maxHeight="Infinity" maxWidth="Infinity" minHeight="Infinity" minWidth="Infinity"
+            stylesheets="@../css/style.css">
+    <children>
+        <StackPane style="-fx-background-color: #0a9b3f;" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <padding>
+                <Insets left="10.0" right="15.0"/>
+            </padding>
+            <children>
+                <ImageView fx:id="LogoImage" pickOnBounds="true" preserveRatio="true" fitHeight="64.0" fitWidth="64.0" StackPane.alignment="TOP_LEFT">
+                    <image>
+                        <Image url="@../images/logo.png"/>
+                    </image>
+                </ImageView>
+                <CustomTextField fx:id="FieldSearch" promptText="%field_search" styleClass="search" style="-fx-padding: 10px 10px 0 10px" minHeight="35.0" maxHeight="35.0" prefHeight="35.0" StackPane.alignment="TOP_RIGHT">
+                    <StackPane.margin>
+                        <Insets top="15.0"/>
+                    </StackPane.margin>
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                    <right>
+                        <Glyph fontFamily="FontAwesome" icon="SEARCH" textFill="#8c97b2" fontSize="17.0" onMouseClicked="#search" styleClass="click"/>
+                    </right>
+                </CustomTextField>
+            </children>
+        </StackPane>
+        <HBox AnchorPane.topAnchor="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <VBox fx:id="LeftBox" minWidth="450.0" prefWidth="9999.0" style="-fx-background-color: #fff;">
+                    <HBox.margin>
+                        <Insets top="10.0" left="10.0"/>
+                    </HBox.margin>
+                    <padding>
+                        <Insets topRightBottomLeft="10.0"/>
+                    </padding>
+                    <children>
+                        <TableView fx:id="OrderView" editable="false" minHeight="350.0" prefHeight="9999.0" styleClass="order-view">
+                            <columns>
+                                <TableColumn fx:id="OrderNumber" editable="false" resizable="false" sortable="false" reorderable="false" minWidth="20.0" text="#"/>
+                                <TableColumn fx:id="OrderName" editable="false" resizable="false" sortable="false" minWidth="130.0" text="%order_name"/>
+                                <TableColumn fx:id="OrderQt" editable="false" resizable="false" sortable="false" minWidth="105.0" text="%order_qt" styleClass="custom-col"/>
+                                <TableColumn fx:id="OrderPrice" editable="false" resizable="false" sortable="false" minWidth="80.0" text="%order_price" styleClass="custom-col"/>
+                                <TableColumn fx:id="OrderTotal" editable="false" resizable="false" sortable="false" minWidth="105.0" text="%order_total" styleClass="custom-col2"/>
+                            </columns>
+                        </TableView>
+                        <AnchorPane>
+                            <children>
+                                <TextFlow AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="15.0">
+                                    <children>
+                                        <Text fill="#555" text="%text_discounts">
+                                            <font><Font name="System Bold" size="18.0"/></font>
+                                        </Text>
+                                        <Text fx:id="textDiscount" fill="#777" text="\$0.00">
+                                            <font><Font name="System Bold" size="18.0"/></font>
+                                        </Text>
+                                    </children>
+                                </TextFlow>
+                                <TextFlow AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
+                                    <children>
+                                        <Text fill="#555" text="%text_subtotal">
+                                            <font><Font name="System Bold" size="18.0"/></font>
+                                        </Text>
+                                        <Text fx:id="textSubTotal" fill="#777" text="\$0.00">
+                                            <font><Font name="System Bold" size="18.0"/></font>
+                                        </Text>
+                                    </children>
+                                </TextFlow>
+                                <TextFlow AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0">
+                                    <children>
+                                        <Text fill="#555" text="%text_tax">
+                                            <font><Font name="System Bold" size="18.0"/></font>
+                                        </Text>
+                                        <Text fx:id="textTVA" fill="#777" text="\$0.00">
+                                            <font><Font name="System Bold" size="18.0"/></font>
+                                        </Text>
+                                    </children>
+                                </TextFlow>
+                                <TextFlow AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+                                    <children>
+                                        <Text fill="#555" text="%text_total">
+                                            <font><Font name="System Bold" size="18.0"/></font>
+                                        </Text>
+                                        <Text fx:id="textTotal" fill="crimson" text="\$0.00">
+                                            <font><Font name="System Bold" size="20.0"/></font>
+                                        </Text>
+                                    </children>
+                                </TextFlow>
+                                <HBox AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0" spacing="20.0">
+                                    <children>
+                                        <Button text="%text_cancel_order" styleClass="btn-type1" onAction="#cancel_order"/>
+                                        <Button text="%text_assistance" styleClass="btn-type1" onAction="#request_assistance"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                        <HBox styleClass="zig-zag" minHeight="130.0" prefHeight="130.0" alignment="BASELINE_CENTER" spacing="35.0">
+                            <VBox.margin><Insets top="5.0" left="-10.0" right="-10.0" bottom="-10.0"/></VBox.margin>
+                            <padding><Insets top="35.0"></Insets></padding>
+                            <children>
+                                <Label fx:id="ButtonBag" text="%text_bag" wrapText="false" contentDisplay="TOP" styleClass="label-button" onMouseClicked="#add_bag">
+                                    <graphic>
+                                        <ImageView fx:id="BagImage" pickOnBounds="true" preserveRatio="true" fitHeight="64.0" fitWidth="64.0">
+                                            <image>
+                                                <Image url="@../images/bag.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Label>
+                                <Label fx:id="ButtonDiscount" text="%text_discount" wrapText="false" contentDisplay="TOP" styleClass="label-button" onMouseClicked="#enter_discount_code">
+                                    <graphic>
+                                        <ImageView fx:id="DiscountImage" pickOnBounds="true" preserveRatio="true" fitHeight="64.0" fitWidth="64.0">
+                                            <image>
+                                                <Image url="@../images/discount.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Label>
+                                <Label fx:id="ButtonBarcode" text="%text_barcode" wrapText="false" contentDisplay="TOP" styleClass="label-button" onMouseClicked="#enter_barcode">
+                                    <HBox.margin><Insets left="-5.0"/></HBox.margin>
+                                    <graphic>
+                                        <ImageView fx:id="BarcodeImage" pickOnBounds="true" preserveRatio="true" fitHeight="64.0" fitWidth="64.0">
+                                            <image>
+                                                <Image url="@../images/barcode.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Label>
+                                <Label fx:id="ButtonPayCard" text="%text_pay_card" wrapText="false" contentDisplay="TOP" styleClass="label-button" onMouseClicked="#card_payment">
+                                    <graphic>
+                                        <ImageView fx:id="PayCardImage" pickOnBounds="true" preserveRatio="true" fitHeight="64.0" fitWidth="64.0">
+                                            <image>
+                                                <Image url="@../images/paycard.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Label>
+                                <Label fx:id="ButtonPayCash" text="%text_pay_cash" wrapText="false" contentDisplay="TOP" styleClass="label-button" onMouseClicked="#cash_payment">
+                                    <graphic>
+                                        <ImageView fx:id="PayCashImage" pickOnBounds="true" preserveRatio="true" fitHeight="64.0" fitWidth="64.0">
+                                            <image>
+                                                <Image url="@../images/paycash.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Label>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <VBox fx:id="RightBox" minWidth="350.0" prefWidth="9999.0" style="-fx-background-color: #fff;">
+                    <HBox.margin>
+                        <Insets top="10.0" left="5.0" right="10.0"/>
+                    </HBox.margin>
+                    <padding>
+                        <Insets top="5.0" bottom="5.0" left="5.0" right="0.0"/>
+                    </padding>
+                    <children>
+                        <VBox fx:id="ShopBox" alignment="CENTER">
+                            <padding><Insets top="20.0" left="15.0"/></padding>
+                            <children>
+                                <FlowPane fx:id="CategoriesMenu" alignment="TOP_LEFT" vgap="15.0" hgap="20.0">
+                            <children>
+                                <Button fx:id="ButtonFruits" mnemonicParsing="false" text="%button_fruits" styleClass="cat-button" onAction="#showFruits" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/fruits.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonVegetables" mnemonicParsing="false" text="%button_vegetables" styleClass="cat-button" onAction="#showVegetables" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/vegetables.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonBreakfast" mnemonicParsing="false" text="%button_breakfast" styleClass="cat-button" onAction="#showBreakfast" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/breakfast.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonMeat" mnemonicParsing="false" text="%button_meat" styleClass="cat-button" onAction="#showMeat" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/meat.jpg"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonSeafood" mnemonicParsing="false" text="%button_seafood" styleClass="cat-button" onAction="#showSeafood" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/seafood.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonFrozen" mnemonicParsing="false" text="%button_frozen" styleClass="cat-button" onAction="#showFrozen" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/frozen.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonBaby" mnemonicParsing="false" text="%button_baby" styleClass="cat-button" onAction="#showBaby" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/baby.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonPets" mnemonicParsing="false" text="%button_pets" styleClass="cat-button" onAction="#showPet" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/pets.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonBaking" mnemonicParsing="false" text="%button_baking" styleClass="cat-button" onAction="#showBaking" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/baking.jpg"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonSnacks" mnemonicParsing="false" text="%button_snacks" styleClass="cat-button" onAction="#showSnacks" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/snacks.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonBakery" mnemonicParsing="false" text="%button_bakery" styleClass="cat-button" onAction="#showBakery" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/bakery.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonPastaRice" mnemonicParsing="false" text="%button_pasta_rice" styleClass="cat-button" onAction="#showPastaRice" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/pasta.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonCansJars" mnemonicParsing="false" text="%button_cans_jars" styleClass="cat-button" onAction="#showCansJars" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/cansjars.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonRefrigerated" mnemonicParsing="false" text="%button_refrigerated" styleClass="cat-button" onAction="#showRefrigerated" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/refrigerated.jpg"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonSeasoning" mnemonicParsing="false" text="%button_seasoning" styleClass="cat-button" onAction="#showSeasoning" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/seasoning.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonSaucesCondiments" mnemonicParsing="false" text="%button_sauces_condiments" styleClass="cat-button" onAction="#showSaucesCondiments" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/sauces.jpg"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonDrinks" mnemonicParsing="false" text="%button_drinks" styleClass="cat-button" onAction="#showDrinks" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/drinks.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonPaperProducts" mnemonicParsing="false" text="%button_paper_products" styleClass="cat-button" onAction="#showPaperProducts" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/paperproducts.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonCleaning" mnemonicParsing="false" text="%button_cleaning" styleClass="cat-button" onAction="#showCleaning" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/cleaning.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonPersonalCare" mnemonicParsing="false" text="%button_personal_care" styleClass="cat-button" onAction="#showPersonalCare" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/personalcare.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="ButtonMiscItems" mnemonicParsing="false" text="%button_misc_items" styleClass="cat-button" onAction="#showMiscItems" prefWidth="110.0" maxWidth="110.0" prefHeight="150.0" maxHeight="150.0" wrapText="true" textAlignment="CENTER" contentDisplay="TOP">
+                                    <graphic>
+                                        <ImageView fitWidth="90.0" fitHeight="90.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../images/categories/misc.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </FlowPane>
+                            </children>
+                        </VBox>
+                        <ScrollPane fx:id="SP" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"/>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

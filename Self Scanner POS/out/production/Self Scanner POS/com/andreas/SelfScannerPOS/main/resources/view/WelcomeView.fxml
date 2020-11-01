@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<StackPane fx:id="MainPane" xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.andreas.SelfScannerPOS.main.java.controller.WelcomeController"
+           maxHeight="Infinity" maxWidth="Infinity" minHeight="Infinity" minWidth="Infinity"
+           stylesheets="@../css/style.css">
+    <children>
+        <ImageView fx:id="LogoImage" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
+            <StackPane.margin>
+                <Insets top="5.0" left="20.0"/>
+            </StackPane.margin>
+            <image>
+                <Image url="@../images/logo.png"/>
+            </image>
+        </ImageView>
+        <VBox fx:id="SelectionBox" spacing="40" styleClass="selection-box" maxHeight="-Infinity" maxWidth="700.0" alignment="TOP_CENTER">
+            <padding>
+                <Insets left="20.0" right="20.0" top="60.0" bottom="60.0"/>
+            </padding>
+            <children>
+                <Text text="%text_welcome" fill="#444" textAlignment="CENTER">
+                    <font>
+                        <Font size="34.0" name="Bauhaus 93" />
+                    </font>
+                </Text>
+                <Text text="%text_instruction" fill="#666"/>
+                <Text text="%text_payment_types" fill="#444" textAlignment="CENTER">
+                    <font>
+                        <Font size="26.0" name="Bauhaus 93"/>
+                    </font>
+                </Text>
+                <HBox spacing="35" alignment="BASELINE_CENTER">
+                    <children>
+                        <ImageView fx:id="CashImage" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/cash.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="CardImage" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/card.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="NFCImage" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/nfc.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <Button fx:id="StartButton" text="%button_start" styleClass="start-button">
+                    <VBox.margin>
+                        <Insets top="30.0"/>
+                    </VBox.margin>
+                </Button>
+                <Text text="%text_select_language" fill="#666">
+                    <VBox.margin>
+                        <Insets top="30.0"/>
+                    </VBox.margin>
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Text>
+                <HBox fx:id="LanguagesBox" spacing="25" alignment="BASELINE_CENTER">
+                    <VBox.margin>
+                        <Insets top="-20.0"/>
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+
+</StackPane>
